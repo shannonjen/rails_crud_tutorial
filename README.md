@@ -23,13 +23,13 @@ The steps outlined below build a simple Rails CRUD (create, read, update, and de
 	end
 	```
 
-4. The root route above specifies a controller that we have not yet added to our application. A controller is in charge of interacting with the model and rendering a view. Let's use the command line to generate the ArtistsController.
+4. The root route above specifies a controller that we have not yet added to our application. A controller is in charge of interacting with the model and rendering a view. Let's use the command line to generate the AlbumsController.
 
 	```bash
-	$ rails g controller artists 
+	$ rails g controller albums 
 	```
 
-5. Next we need to add the index action (a method) to the generated ArtistsController. The ArtistsController is a class located in the newly created albums_controller.rb in the controllers folder.  
+5. Next we need to add the index action (a method) to the generated AlbumsController. The AlbumsController is a class located in the newly created albums_controller.rb in the controllers folder.  
 
 	```ruby
 	#app/controllers/albums_controller.rb
@@ -40,25 +40,25 @@ The steps outlined below build a simple Rails CRUD (create, read, update, and de
 
 	```
 
-6. The index action will try and render the index view. Left empty, the index action of the AlbumsController will try and locate and render an index template inside of a folder called albums within the views folder. In other words, we need to add an index.html.erb file to app/views/albums. 
+6. Left empty, the index action of the AlbumsController will try and locate and render an index template inside of a folder called albums within the views folder. In other words, we need to add an index.html.erb file to app/views/albums. 
 
 	```html
 	<!--app/views/albums/index.html.erb--> 
 	<h1>Your Album Collection</h1>
 	```
 
-7. We would like our index page to list out all of the albums in a users' collection. We need a database with an albums table and an Album model to interact with the database. The model generator will generate the model (Album class) as well as a migration that will create the table (albums) and fields (title and artist) for the model. 
+7. We would like our index page to list out all of the albums in a users' collection. We need a database with an albums table and an Album model to interact with the database. The model generator will generate the model (Album class) as well as a migration that will create the table (albums) with fields (title and artist) for the model. 
 
 	```bash
 	$ rails g model Album title:string artist:string
 	``` 
 
-8. Now we need to run the migration to create the table.
+8. Now we need to run the migration with a rake task to create the table.
 
 	```bash
 	$ rake db:migrate
 	```
-	This will generate a schema file inside of the db folder of the application. The schema represents the current state of the database. 
+	This will also generate a schema file inside of the db folder of the application. The schema represents the current state of the database. 
 
 9. Now that we have a model and homepage, let's add a resource route for albums. The resource route defines the routes to the seven restful actions in the AlbumsController:
 
@@ -146,9 +146,9 @@ The steps outlined below build a simple Rails CRUD (create, read, update, and de
 		end
 	end
 	```
-15. READ index and show: We would like to have the home page of our app list out all of the Albums and would like each album to link to a unique page for that particular album. 
+15. READ index and show: We would like to have the home page of our app list out all of the Albums and we would like each album to link to a unique page for that particular album. 
 
-	We can query the albums for all of the records in the albums table and return all of the records as an array-like collection of Active Record objects in our index controller. We set this to an instance variable @albums for use in our index view. In the index view, we can use an each method on @albums to cycle through the albums and list their titles. We can render each title as text for a link to their unique album page.
+	We can query the albums for all of the records in the albums table and return all of the records as an array-like collection of Active Record objects in our index controller. We set this to an instance variable @albums for use in our index view. In the index view, we can use a .each method on @albums to cycle through the albums and list their titles. We can render each title as text for a link to a unique album page.
 
 	Let's modify the index action and create the show action in the AlbumsController. 
 
@@ -197,7 +197,7 @@ The steps outlined below build a simple Rails CRUD (create, read, update, and de
 		<h2><%= link_to album.name, album %></h2>
 	<% end %>
 	```
-17. The show view will list the album title and artist for the specified album.This page will also include a link to a page with a form to edit the specified album and an a link to delete the album. Let's create the show view with two links.
+17. The show view will list the album title and artist for the specified album. This page will also include a link to a page with a form to edit the specified album and a link to delete the album. Let's create the show view with these two links.
 
 	```html
 	<!-- app/views/albums/show.html.erb -->
@@ -252,7 +252,7 @@ The steps outlined below build a simple Rails CRUD (create, read, update, and de
 	end
 	```
 
-20. Add the edit view. 
+20. Add the edit view with a form for updating an album. This form_for is identical to one in the new view. However, Rails checks to see if @album has been persisted to the table. If so, it will render the appropriate route to lead to an update action (as opposed to a new action for a newly created @album).
 
 	```html
 	<h1>Edit Album</h1>
