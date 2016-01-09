@@ -255,6 +255,7 @@ The steps outlined below build a simple Rails CRUD (create, read, update, and de
 20. Add the edit view with a form for updating an album. This form_for is identical to one in the new view. However, Rails checks to see if @album has been persisted to the table. If so, it will render the appropriate route to lead to an update action (as opposed to a new action for a newly created @album).
 
 	```html
+	<!-- app/views/albums/edit.html.erb -->
 	<h1>Edit Album</h1>
 	<%= form_for(@album) do |f| %>
 		<%=f.label :title %>
