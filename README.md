@@ -159,6 +159,10 @@ The steps outlined below build a simple Rails CRUD (create, read, update, and de
 			@albums = Album.all
 		end
 
+		def show
+			@album = Album.find(params[:id])
+		end
+
 		def new
 			@album = Album.new
 		end
@@ -171,10 +175,6 @@ The steps outlined below build a simple Rails CRUD (create, read, update, and de
 			else
 
 			end
-		end
-
-		def show
-			@album = Album.find(params[:id])
 		end
 
 		private
