@@ -19,7 +19,7 @@ The steps outlined below build a simple Rails CRUD (create, read, update, and de
 	```ruby
 	#config/routes.rb
 	Rails.application.routes.draw do
-  	root 'artists#index'
+  	root 'albums#index'
 	end
 	```
 
